@@ -1,0 +1,1 @@
+symfony console about :  permet de vérifié la version de notre symfony. Ici c'est la version synfony 7.0.2
