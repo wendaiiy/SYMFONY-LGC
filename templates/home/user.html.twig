@@ -4,8 +4,11 @@
 
   <h2>Liste des utilisateurs</h2>
     <ul>
-    {% for utilisateur in utilisateur %}
+    {% for utilisateur in utilisateurs %}
         <li>{{ utilisateur }}</li>
+        {# Ici la variable qui contine la liste des utilisateur correspond à celle déclarer après le in 
+        Celui d'avant correspond à elment
+        #}
     {% endfor %}
     </ul>
 

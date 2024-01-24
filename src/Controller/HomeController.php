@@ -55,6 +55,6 @@ class HomeController extends AbstractController
     public function afficherUser(): Response
     {
         $user = ["Jhonne", "Whitney", "Winona", "Marine"];
-        return $this->render('home/user.html.twig', ['utilisateur'=> $user]);
+        return $this->render('home/user.html.twig', ['utilisateurs'=> $user]);
     }
 }
