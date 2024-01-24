@@ -1,3 +1,20 @@
 body {
-    background-color: skyblue;
+    background-color: #F7F7F7;
+}
+nav{
+    display: block;
+    
+}
+ul{
+    display: flex;
+    flex-direction: row;    
+    text-align: center;
+}
+li{    
+    list-style: none;
+    padding: 10px;
+}
+a{
+    text-decoration: none;
+    color:#583101 ;
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Accueil{% endblock %} #}
+
+{% block body %}
+<style>
+    .example-wrapper h1{ text-align: center;}
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello 😒!</h1>
+    {{ 2*3 }}<br>
+    {{ '2'~'6'}} <br>
+    {{ "now" | date('y-m-d h:i:s', 'Europe/Paris')}}
+    {# ici c'est un calcul il va afficher le résultat de l'opération 2+2  avec les deux accolade 
+    le deux accodale permet de faire le calcul ou une afficher une fontion
+    {{ '2'~'6'}} le signe ~ permet de faire la concaténation avec le language twig
+    {{ "now | dateformat('y-m-d')}} permet de faire un filtre
+    #}
+</div>
+
+{% endblock %}

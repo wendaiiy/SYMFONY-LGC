@@ -1,1 +1,9 @@
-symfony console about :  permet de vérifié la version de notre symfony. Ici c'est la version synfony 7.0.2
+- symfony console about =  permet de vérifié la version de notre symfony. Ici c'est la version synfony 7.0.2
+- symfony server:start = permet de lancer un serveur symfony (meme principe que nodemon avec javascript)
+- symfony server:start -d = permet de mettre le server en fond afin de pouvoir taper d'autre commande
+- symfony server:stop = permet d'arreter la serveur. 
+- symfony server:ca:install = permet d'installer le certificat https
+- symfony console list:make = permet de voir la liste des commandes possibles
+symfony console make:controller <nom> = permet de créer un controller
+
+Rappel la class Abstract est une classe abstract qui permet d'être utilisé dans les sous classe ici c'est 
