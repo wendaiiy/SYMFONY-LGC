@@ -5,15 +5,18 @@ namespace App\Controller;
 use Doctrine\Persistence\ManagerRegistry; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
+use App\Form\CategorieType;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/addcategorie', name: 'app_categorie')]
+    #[Route('/addManuelcategorie', name: 'app_categorie')]
     public function addCategorie(ManagerRegistry $doctrine): Response
     {
-        $em = $doctrine->getManger();
+        $em = $doctrine->getManager();
         //Pour créer une catégorie
         $categorie = new Categorie(); 
         $categorie->setNom("Meuble"); 
@@ -90,6 +93,25 @@ class CategorieController extends AbstractController
         $em->flush();
         
         return $this->redirectToRoute('list_categorie');
+    }
+
+    // Ajout d'une catégorie
+    #[Route('/addcategorie', name: 'add_categorie')]
+    public function addFormCategorie(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $em = $doctrine->getManager();
+        $catego = new Categorie();
+
+        $form = $this->createForm(CategorieType::class, $catego);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($catego);
+            $em->flush();
+            return $this->redirectToRoute('list_categorie');
+        }
+        return $this->render('categorie/add.html.twig', [
+            'form'=>$form
+        ]);
     }
 
 

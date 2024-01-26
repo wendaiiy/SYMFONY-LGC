@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')] // il est possible d'ajouter un 3ème paramètres avec methods:['GET', 'POST', 'DELETE']. mais on va laisser symfony faire le traitement directement
+    #[Route('/', name: 'app_home')] // il est possible d'ajouter un 3ème paramètres avec methods:['GET', 'POST', 'DELETE']. mais on va laisser symfony faire le traitement directement
     public function index(): Response
     {
         return $this->render('home/index.html.twig', [

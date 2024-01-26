@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste catégories{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Nom :</th>
+            <th>Prenom : </th>
+            <th>Etude :</th>
+        </tr>
+        {% for etudiant in etudiants %}
+            <tr>
+                <th>{{etudiant.id}} </th>
+                <th>{{etudiant.nom}} </th>
+                <th>{{etudiant.prenom}} </th>
+                <th>{{etudiant.prenom}} </th>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
