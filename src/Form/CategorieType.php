@@ -16,15 +16,14 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-             ->add('description', TextareaType::class, [
-                'attr'=>["class" =>"form-control mt-2"],                
-                'label' => "Description :"
-            ])
             ->add('nom', TextType::class, [
                 'attr'=>["class" =>"form-control mt-2"],
                 'label'=>'Nom :'                
-            ])
-           
+            ])  
+             ->add('description', TextareaType::class, [
+                'attr'=>["class" =>"form-control mt-2"],                
+                'label' => "Description :"
+            ])                    
             ->add('Valider', SubmitType::class, [
                 'attr'=>["class" =>"d-grid gap-2 col-6 mx-auto mt-2 btn btn-secondary"]
             ])         
