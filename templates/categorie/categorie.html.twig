@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Affichage des categories{% endblock %}
+
+{% block body %}
+    <ul>    
+        <li>{{ cat.id}}</li>
+        <li>{{ cat.nom}}</li>
+        <li>{{ cat.description}}</li>
+    </ul>
+{% endblock %}
