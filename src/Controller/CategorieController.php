@@ -58,16 +58,22 @@ class CategorieController extends AbstractController
 
     //Modifier une categorie
     #[Route('/editCategorie/{id}', name: 'edit_categorie')]
-    public function modifCategorie(ManagerRegistry $doctrine, Categorie $cat): Response
+    public function modifCategorie(ManagerRegistry $doctrine, Categorie $cat, Request $req): Response
     {
-              
-        $em = $doctrine->getManager();
-        $cat->setNom("matelas");
-        $cat->setDescription("list des matelas");
-        //Sauvegarder l'objet dans la BDD
-        $em->flush();
+       
+        $form = $this->createForm(CategorieType::class, $cat);
+        $form->handleRequest($req); 
+        if($form->isSubmitted() && $form->isValid()){
+            $em= $doctrine->getManager();
+            $em->persist($cat);
+            $em->flush();
+            return $this->redirectToRoute('list_categorie');
+        }
+        return $this->render('categorie/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+                
         
-        return $this->redirectToRoute('list_categorie');
     }
 
     //  Modification via le getRepository

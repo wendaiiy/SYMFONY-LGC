@@ -8,12 +8,17 @@
             <th>ID</th>
             <th>Nom de categorie :</th>
             <th>Description : </th>
+            <th></th>
+            <th></th>
         </tr>
         {% for categorie in cats %}
             <tr>
                 <th>{{categorie.id}} </th>
                 <th>{{categorie.nom}} </th>
                 <th>{{categorie.description}} </th>
+                <th><a href=""></a></th>
+                <th><a href={{ path('edit_categorie', {id: categorie.id}) }}>Modifier</a></th>
+                <th><a href={{ path('delete_categorie', {id: categorie.id}) }}>Supprimer</a></th>
             </tr>
         {% endfor %}
     </table>

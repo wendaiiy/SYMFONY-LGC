@@ -18,6 +18,8 @@
                 <th>{{etudiant.nom}} </th>
                 <th>{{etudiant.prenom}} </th>
                 <th>{{etudiant.prenom}} </th>
+                <th><a href={{ path('edit_etudiant', {id: etudiant.id}) }}>Modifier</a></th>
+                <th><a href={{ path('delete_etudiant', {id: etudiant.id}) }}>Supprimer</a></th>
             </tr>
         {% endfor %}
     </table>

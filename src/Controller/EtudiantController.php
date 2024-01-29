@@ -41,15 +41,30 @@ class EtudiantController extends AbstractController
     }
 
     #[Route('/editetudiant/{id}', name: 'edit_etudiant')]
-    public function editEtudiant(ManagerRegistry $doctrine, Etudiant $etudiant): Response
+    public function editEtudiant(ManagerRegistry $doctrine, Etudiant $etudiant, Request $req): Response
     {
-                  
-            $em = $doctrine->getManager();
-            $etudiant->setNom("Maurel");
-            $etudiant->setPrenom("Charlie");
-            $etudiant->setEtude("Art");
-            $em->flush();            
-            return $this->redirectToRoute('app_etudiant');
+            $form = $this->createForm(EtudiantType::class, $etudiant); 
+            $form->handleRequest($req);
+            if($form->isSubmitted() && $form->isValid()){
+                $em = $doctrine->getManager();
+                $em->persist($etudiant);
+                $em->flush();            
+                return $this->redirectToRoute('app_etudiant');
+            }      
+         
+            return $this->render('etudiant/edit.html.twig', [
+                'formet' => $form->createView()
+            ]);
       
+    }
+
+    #[Route('/deleteetudiant/{id}', name: 'delete_etudiant')]
+    public function deleteEtudiant(ManagerRegistry $doctrine, Etudiant $et) : Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($et);
+        $em->flush(); 
+
+        return $this->redirectToRoute('app_etudiant');
     }
 }
