@@ -9,6 +9,7 @@
             <th>Nom :</th>
             <th>Prenom : </th>
             <th>Etude :</th>
+            <th>Photo :</th>
             <th></th>
             <th></th>
         </tr>
@@ -17,7 +18,8 @@
                 <th>{{etudiant.id}} </th>
                 <th>{{etudiant.nom}} </th>
                 <th>{{etudiant.prenom}} </th>
-                <th>{{etudiant.prenom}} </th>
+                <th>{{etudiant.etude}} </th>
+                <td><img src={{ asset("uploads/" ~ etudiant.fichier) }} width="100" height="100" alt={{ etudiant.nom}}></td>
                 <th><a href={{ path('edit_etudiant', {id: etudiant.id}) }}>Modifier</a></th>
                 <th><a href={{ path('delete_etudiant', {id: etudiant.id}) }}>Supprimer</a></th>
             </tr>

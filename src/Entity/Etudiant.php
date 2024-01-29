@@ -22,6 +22,9 @@ class Etudiant
     #[ORM\Column(length: 255)]
     private ?string $etude = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $fichier = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Etudiant
     public function setEtude(string $etude): static
     {
         $this->etude = $etude;
+
+        return $this;
+    }
+
+    public function getFichier(): ?string
+    {
+        return $this->fichier;
+    }
+
+    public function setFichier(string $fichier): static
+    {
+        $this->fichier = $fichier;
 
         return $this;
     }

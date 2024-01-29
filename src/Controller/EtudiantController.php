@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class EtudiantController extends AbstractController
 {
@@ -23,7 +24,7 @@ class EtudiantController extends AbstractController
 
 
     #[Route('/addetudiant', name: 'add_etudiant')]
-    public function addEtudiant(ManagerRegistry $doctrine, Request $request): Response
+    public function addEtudiant(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
         $em = $doctrine->getManager();
         $etudiant = new Etudiant();
@@ -31,6 +32,20 @@ class EtudiantController extends AbstractController
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $fichier = $form->get('fichier')->getData(); 
+            if($fichier){
+                //recupère des infos sur le chemin plus précissement  le nom du fichier
+                $originalFilename = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                //Recupère le nom du fichier sans extension
+                $saveFilename = $slugger->slug($originalFilename);
+                //formter le fichier en ajoutant un nombre aléatoire afin de distinguer 2 fishier avec le même nom
+                $newFilename = $saveFilename . '-'. uniqid(). '.' . $fichier->guessExtension();
+                $fichier->move(
+                    $this->getParameter(('etudiant_directory'), $newFilename)
+                );
+                $etudiant->setFichier($newFilename); 
+            }
+
             $em->persist($etudiant);
             $em->flush();
             return $this->redirectToRoute('app_etudiant');
@@ -41,11 +56,24 @@ class EtudiantController extends AbstractController
     }
 
     #[Route('/editetudiant/{id}', name: 'edit_etudiant')]
-    public function editEtudiant(ManagerRegistry $doctrine, Etudiant $etudiant, Request $req): Response
+    public function editEtudiant(ManagerRegistry $doctrine, Etudiant $etudiant, Request $req, SluggerInterface $slugger): Response
     {
             $form = $this->createForm(EtudiantType::class, $etudiant); 
             $form->handleRequest($req);
             if($form->isSubmitted() && $form->isValid()){
+                $fichier = $form->get('fichier')->getData(); 
+                if($fichier){
+                //recupère des infos sur le chemin plus précissement  le nom du fichier
+                $originalFilename = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                //Recupère le nom du fichier sans extension
+                $saveFilename = $slugger->slug($originalFilename);
+                //formter le fichier en ajoutant un nombre aléatoire afin de distinguer 2 fishier avec le même nom
+                $newFilename = $saveFilename . '-'. uniqid(). '.' . $fichier->guessExtension();
+                $fichier->move(
+                    $this->getParameter(('etudiant_directory'), $newFilename)
+                );
+                $etudiant->setFichier($newFilename); 
+            }
                 $em = $doctrine->getManager();
                 $em->persist($etudiant);
                 $em->flush();            
