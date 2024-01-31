@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CategorieController extends AbstractController
@@ -105,6 +106,8 @@ class CategorieController extends AbstractController
     // Ajout d'une catégorie
     #[Route('/addcategorie', name: 'add_categorie')]
     #[IsGranted("ROLE_ADMIN")]
+    // afin de pouvoir laisser les role avec acces à une ressource en particulier exemple pour créer des articles on va utiliser la commande ci dessous
+    //  #[IsGranted(new Expression('is_granted("ROLE_ADMIN") or is_granted("ROLE_CLIENT")'))]
     public function addFormCategorie(ManagerRegistry $doctrine, Request $request): Response
     {
         $em = $doctrine->getManager();
