@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class EtudiantController extends AbstractController
@@ -24,6 +25,7 @@ class EtudiantController extends AbstractController
 
 
     #[Route('/addetudiant', name: 'add_etudiant')]
+    #[IsGranted('ROLE_ADMIN')]
     public function addEtudiant(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
         $em = $doctrine->getManager();
@@ -41,7 +43,7 @@ class EtudiantController extends AbstractController
                 //formter le fichier en ajoutant un nombre aléatoire afin de distinguer 2 fishier avec le même nom
                 $newFilename = $saveFilename . '-'. uniqid(). '.' . $fichier->guessExtension();
                 $fichier->move(
-                    $this->getParameter(('etudiant_directory'), $newFilename)
+                    $this->getParameter('etudiant_directory'), $newFilename
                 );
                 $etudiant->setFichier($newFilename); 
             }
@@ -70,7 +72,7 @@ class EtudiantController extends AbstractController
                 //formter le fichier en ajoutant un nombre aléatoire afin de distinguer 2 fishier avec le même nom
                 $newFilename = $saveFilename . '-'. uniqid(). '.' . $fichier->guessExtension();
                 $fichier->move(
-                    $this->getParameter(('etudiant_directory'), $newFilename)
+                    $this->getParameter('etudiant_directory'), $newFilename
                 );
                 $etudiant->setFichier($newFilename); 
             }

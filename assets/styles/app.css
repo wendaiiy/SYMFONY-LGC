@@ -6,15 +6,13 @@ nav{
     
 }
 ul{
-    display: flex;
-    flex-direction: row;    
-    text-align: center;
+    display: flex;   
 }
 li{    
     list-style: none;
     padding: 10px;
 }
-a{
+.linknav{
     text-decoration: none;
-    color:#583101 ;
+    color:#583101;
 }

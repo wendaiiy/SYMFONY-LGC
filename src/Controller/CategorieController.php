@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CategorieController extends AbstractController
 {
@@ -103,6 +104,7 @@ class CategorieController extends AbstractController
 
     // Ajout d'une catégorie
     #[Route('/addcategorie', name: 'add_categorie')]
+    #[IsGranted("ROLE_ADMIN")]
     public function addFormCategorie(ManagerRegistry $doctrine, Request $request): Response
     {
         $em = $doctrine->getManager();
